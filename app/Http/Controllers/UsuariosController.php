@@ -25,6 +25,12 @@ class UsuariosController extends Controller
 
     public function setNewUser(Request $request)
     {
+        $this->validate($request, [
+            'nome' => 'required',
+            'email' => 'required|email|unique:usuarios,email',
+            'password' => 'required'
+        ]);
+
         $usuario = new Usuarios;
         $usuario->nome = $request->nome;
         $usuario->email = $request->email;
@@ -43,7 +49,7 @@ class UsuariosController extends Controller
         $usuario->email = $request->email;
         $usuario->password = $request->password;
         $usuario->save();
-        
+
         return response()->json($usuario);
 
     }
