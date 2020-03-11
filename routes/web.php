@@ -17,6 +17,11 @@ $router->group(['prefix' => 'users'], function () use ($router) {
     $router->put('update/{id}', 'UsuariosController@updateUser');
 });
 
+$router->group(['prefix' => 'login'], function () use ($router) {
+	$router->post('/', 'LoginController@Login');
+	$router->post('new', 'LoginController@setNewUser');
+});
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
