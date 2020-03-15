@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Usuarios;
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UsuariosController extends Controller
 {
@@ -13,9 +17,11 @@ class UsuariosController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $jwt;
+
+    public function __construct(JWTAuth $jwt)
     {
-        //
+        $this->jwt = $jwt;
     }
 
     public function getAllUsuarios()
@@ -51,6 +57,15 @@ class UsuariosController extends Controller
         $usuario->save();
 
         return response()->json($usuario);
+    }
 
+    public function getUserAuth(Request $request)
+    {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+
+        $usuario = Auth::user();
+        return response()->json($usuario);
     }
 }
