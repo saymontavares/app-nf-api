@@ -11,11 +11,13 @@
 |
 */
 
-$router->group(['prefix' => 'users'], function () use ($router) {
+$router->group(['prefix' => 'user', 'middleware' => 'auth'], function () use ($router) {
+    $router->post('userauth', 'UsuariosController@getUserAuth');
+    $router->post('logout', 'UsuariosController@userLogout');
+    
     $router->get('all', 'UsuariosController@getAllUsuarios');
     $router->post('new', 'UsuariosController@setNewUser');
     $router->put('update/{id}', 'UsuariosController@updateUser');
-    $router->post('userauth', 'UsuariosController@getUserAuth');
 });
 
 $router->group(['prefix' => 'login'], function () use ($router) {

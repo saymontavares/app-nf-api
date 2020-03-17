@@ -22,6 +22,7 @@ class UsuariosController extends Controller
     public function __construct(JWTAuth $jwt)
     {
         $this->jwt = $jwt;
+        //$this->middleware("auth:api");
     }
 
     public function getAllUsuarios()
@@ -61,11 +62,13 @@ class UsuariosController extends Controller
 
     public function getUserAuth(Request $request)
     {
-        $this->validate($request, [
-            'token' => 'required'
-        ]);
-
         $usuario = Auth::user();
         return response()->json($usuario);
+    }
+
+    public function userLogout()
+    {
+        Auth::logout();
+        return response()->json(["user" => "Usuário saiu."]);
     }
 }
