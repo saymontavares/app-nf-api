@@ -23,6 +23,7 @@ $router->group(['prefix' => 'user', 'middleware' => 'auth'], function () use ($r
 $router->group(['prefix' => 'login'], function () use ($router) {
 	$router->post('/', 'LoginController@Login');
 	$router->post('new', 'LoginController@setNewUser');
+	$router->post('recoverpass', 'LoginController@recoverPass');
 });
 
 $router->get('/', function () use ($router) {

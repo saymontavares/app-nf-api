@@ -33,13 +33,13 @@ class UsuariosController extends Controller
     public function setNewUser(Request $request)
     {
         $this->validate($request, [
-            'nome' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:usuarios,email',
             'password' => 'required'
         ]);
 
         $usuario = new Usuarios;
-        $usuario->nome = $request->nome;
+        $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = $request->password;
         $usuario->status = "A";
@@ -52,7 +52,7 @@ class UsuariosController extends Controller
     public function updateUser(Request $request, $id)
     {
         $usuario = Usuarios::find($id);
-        $usuario->nome = $request->nome;
+        $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = $request->password;
         $usuario->save();
