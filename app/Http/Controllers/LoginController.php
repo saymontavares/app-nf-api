@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\RecoverPass;
+use App\Events\LoginEvent;
 
 class LoginController extends Controller
 {
@@ -39,6 +40,9 @@ class LoginController extends Controller
                 ]
             , 401);
         }
+
+        // register event
+        event(new LoginEvent($request->user()));
 
         return response()->json(compact('token'));
     }
